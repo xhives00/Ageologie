@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ageologie.cz - geologicky stul</title>
+    <meta
+      name="description"
+      content="Moderni demo webu pro geologicke pruzkumy Ageologie."
+    />
+    <link rel="preconnect" href="https://ageologie.cz" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="travel-glow" aria-hidden="true"></div>
+
+    <header class="brand">
+      <button class="brand-mark" type="button" data-target="hero" aria-label="Ageologie home">
+        <svg class="logo-mark" viewBox="0 0 64 64" role="img" aria-labelledby="logo-title">
+          <title id="logo-title">Ageologie</title>
+          <rect x="6" y="6" width="52" height="52" rx="14"></rect>
+          <path class="logo-layer" d="M13 44c9-9 16 3 25-6 6-6 10-7 13-5"></path>
+          <path class="logo-layer thin" d="M13 51c10-7 18 2 27-5 5-4 8-5 11-4"></path>
+          <path class="logo-a" d="M18 47 32 16l14 31"></path>
+          <path class="logo-crossbar" d="M25 36h14"></path>
+          <circle class="logo-point" cx="42" cy="24" r="4"></circle>
+          <path class="logo-drill" d="M42 28v14"></path>
+        </svg>
+      </button>
+      <div>
+        <strong>AGEOLOGIE</strong>
+        <span data-i18n="brand.tagline">In&#382;en&#253;rsk&#225; geologie, hydrogeologie, radon</span>
+      </div>
+    </header>
+
+    <nav class="top-menu" aria-label="Main navigation">
+      <div class="menu-items">
+        <button class="menu-button active" type="button" data-target="sluzby">
+          <span data-i18n="nav.services">Slu&#382;by</span>
+        </button>
+        <button class="menu-button" type="button" data-target="blog">
+          <span data-i18n="nav.blog">Blog</span>
+        </button>
+        <button class="menu-button" type="button" data-target="galerie">
+          <span data-i18n="nav.gallery">Galerie</span>
+        </button>
+        <button class="menu-button" type="button" data-target="cenik">
+          <span data-i18n="nav.prices">Cen&#237;k</span>
+        </button>
+        <button class="menu-button" type="button" data-target="kontakt">
+          <span data-i18n="nav.contact">Kontakt</span>
+        </button>
+      </div>
+
+      <div class="language-switcher" aria-label="Language selection">
+        <button class="lang-button active" type="button" data-lang="cs" aria-label="Cestina">
+          <svg class="flag" viewBox="0 0 60 40" aria-hidden="true">
+            <rect width="60" height="20" fill="#fff"></rect>
+            <rect y="20" width="60" height="20" fill="#d7141a"></rect>
+            <path d="M0 0 30 20 0 40Z" fill="#11457e"></path>
+          </svg>
+        </button>
+        <button class="lang-button" type="button" data-lang="en" aria-label="English">
+          <svg class="flag" viewBox="0 0 60 40" aria-hidden="true">
+            <clipPath id="uk-clip"><rect width="60" height="40" rx="0"></rect></clipPath>
+            <g clip-path="url(#uk-clip)">
+              <rect width="60" height="40" fill="#012169"></rect>
+              <path d="M0 0 60 40M60 0 0 40" stroke="#fff" stroke-width="8"></path>
+              <path d="M0 0 60 40M60 0 0 40" stroke="#c8102e" stroke-width="4"></path>
+              <path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="13"></path>
+              <path d="M30 0v40M0 20h60" stroke="#c8102e" stroke-width="7"></path>
+            </g>
+          </svg>
+        </button>
+        <button class="lang-button" type="button" data-lang="de" aria-label="Deutsch">
+          <svg class="flag" viewBox="0 0 60 40" aria-hidden="true">
+            <rect width="60" height="13.34" fill="#000"></rect>
+            <rect y="13.34" width="60" height="13.33" fill="#dd0000"></rect>
+            <rect y="26.67" width="60" height="13.33" fill="#ffce00"></rect>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <main class="viewport" id="viewport">
+      <div class="desk-object map-sheet" aria-hidden="true">
+        <span data-i18n="object.map">Mapa vrt&#367;</span>
+        <i></i><i></i><i></i><i></i>
+      </div>
+      <div class="desk-object core-box" aria-hidden="true">
+        <b></b><b></b><b></b><b></b>
+      </div>
+      <div class="desk-object field-photo photo-one" aria-hidden="true">
+        <img
+          src="https://ageologie.cz/wp-content/uploads/2026/02/img_5032_optimized-768x576.jpg"
+          alt=""
+        />
+      </div>
+      <div class="desk-object field-photo photo-two" aria-hidden="true">
+        <img
+          src="https://ageologie.cz/wp-content/uploads/2026/02/p7012966_optimized-768x576.jpg"
+          alt=""
+        />
+      </div>
+      <div class="desk-object ruler" aria-hidden="true"></div>
+
+      <section class="scene-panel hero" data-section="hero">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Aplikovan&#225; geologie v ter&#233;nu</p>
+        <h1 data-i18n="hero.title">Geologick&#233; pr&#367;zkumy postaven&#233; na kvalitn&#237;ch ter&#233;nn&#237;ch datech.</h1>
+        <p data-i18n="hero.copy">
+          Poskytujeme &#353;irokou nab&#237;dku geologick&#253;ch slu&#382;eb, rychl&#233;
+          term&#237;ny dod&#225;n&#237; a v&#253;stupy, kter&#253;m rozum&#237; investor,
+          projektant i &#250;&#345;ad.
+        </p>
+        <div class="hero-actions">
+          <button type="button" data-target="kontakt" data-i18n="hero.cta">Poptat pr&#367;zkum</button>
+          <button type="button" data-target="blog" data-i18n="hero.secondary">Pr&#225;ce z ter&#233;nu</button>
+        </div>
+      </section>
+
+      <section class="scene-panel services" data-section="sluzby">
+        <p class="eyebrow" data-i18n="services.eyebrow">Co firma d&#283;l&#225;</p>
+        <h2 data-i18n="services.title">Slu&#382;by</h2>
+        <div class="service-grid">
+          <article>
+            <span>01</span>
+            <h3 data-i18n="services.one.title">In&#382;en&#253;rsko-geologick&#233; pr&#367;zkumy</h3>
+            <p data-i18n="services.one.copy">
+              Pr&#367;zkumy pro rodinn&#233; domy, bytov&#233; domy, haly,
+              op&#283;rn&#233; zdi i liniov&#233; stavby.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3 data-i18n="services.two.title">Hydrogeologick&#233; pr&#367;zkumy</h3>
+            <p data-i18n="services.two.copy">
+              Vsakovac&#237; zkou&#353;ky, hydrodynamick&#233; zkou&#353;ky,
+              pasport j&#237;mac&#237;ch objekt&#367; a odb&#283;ry vod.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3 data-i18n="services.three.title">Sond&#225;&#382;n&#237; pr&#225;ce a radon</h3>
+            <p data-i18n="services.three.copy">
+              J&#225;drov&#233; geologick&#233; sondy, dynamick&#233; penetrace a
+              stanoven&#237; radonov&#233;ho indexu pozemku.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="scene-panel blog" data-section="blog">
+        <p class="eyebrow" data-i18n="blog.eyebrow">Aktivita, kter&#225; buduje d&#367;v&#283;ru</p>
+        <h2 data-i18n="blog.title">Blog a soci&#225;ln&#237; s&#237;t&#283;</h2>
+        <div class="blog-layout">
+          <article class="post-card">
+            <img
+              src="https://ageologie.cz/wp-content/uploads/2026/02/dsc02742_optimized-1024x683.jpg"
+              alt="Terenn&#237; geologick&#253; pruzkum"
+            />
+            <div>
+              <small data-i18n="blog.one.meta">&#218;no 5, 2026</small>
+              <h3 data-i18n="blog.one.title">Pro&#269; se vyplat&#237; objednat in&#382;en&#253;rsko-geologick&#253; pr&#367;zkum?</h3>
+              <p data-i18n="blog.one.copy">
+                Kr&#225;tk&#253; &#269;l&#225;nek z praxe vysv&#283;tl&#237;, pro&#269; se
+                pr&#367;zkum vyplat&#237; je&#353;t&#283; p&#345;ed za&#269;&#225;tkem stavby.
+              </p>
+            </div>
+          </article>
+          <article class="post-card">
+            <img
+              src="https://ageologie.cz/wp-content/uploads/2026/02/img_4628_optimized-1024x768.jpg"
+              alt="Vrtaci prace v terenu"
+            />
+            <div>
+              <small data-i18n="blog.two.meta">Nov&#225; akce z ter&#233;nu</small>
+              <h3 data-i18n="blog.two.title">Fotky z realizace rovnou na web, Facebook a Instagram</h3>
+              <p data-i18n="blog.two.copy">
+                Po p&#345;ihl&#225;&#353;en&#237; sta&#269;&#237; p&#345;idat fotky,
+                lokalitu a kr&#225;tk&#253; koment&#225;&#345;. Web z toho
+                p&#345;iprav&#237; &#269;l&#225;nek i soci&#225;ln&#237; p&#345;&#237;sp&#283;vky.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="scene-panel gallery" data-section="galerie">
+        <p class="eyebrow" data-i18n="gallery.eyebrow">Pr&#225;ce, kter&#225; je vid&#283;t</p>
+        <h2 data-i18n="gallery.title">Galerie</h2>
+        <p data-i18n="gallery.copy">
+          Fotky z ter&#233;nu ukazuj&#237; techniku, skute&#269;n&#233; realizace a
+          rozsah zak&#225;zek. Galerie bude napojen&#225; na blog i soci&#225;ln&#237;
+          s&#237;t&#283;, aby web p&#367;sobil aktivn&#283; a d&#367;v&#283;ryhodn&#283;.
+        </p>
+        <div class="gallery-grid">
+          <figure>
+            <img src="https://ageologie.cz/wp-content/uploads/2026/02/dsc_2760_optimized-768x512.jpg" alt="Terenn&#237; pruzkum" />
+          </figure>
+          <figure>
+            <img src="https://ageologie.cz/wp-content/uploads/2026/02/img_4565_optimized-768x576.jpg" alt="Sondazni prace" />
+          </figure>
+          <figure>
+            <img src="https://ageologie.cz/wp-content/uploads/2026/02/img_e4373_optimized-768x1024.jpg" alt="Geologicke vybaveni" />
+          </figure>
+          <figure>
+            <img src="https://ageologie.cz/wp-content/uploads/2026/02/p7012966_optimized-768x576.jpg" alt="Prace v terenu" />
+          </figure>
+        </div>
+      </section>
+
+      <section class="scene-panel prices" data-section="cenik">
+        <p class="eyebrow" data-i18n="prices.eyebrow">Transparentn&#237; start rozhovoru</p>
+        <h2 data-i18n="prices.title">Cen&#237;k</h2>
+        <div class="price-list">
+          <div><span data-i18n="prices.one">J&#225;drov&#225; geologick&#225; sonda</span><strong data-i18n="prices.one.value">od 2100 K&#269;/m</strong></div>
+          <div><span data-i18n="prices.two">Dynamick&#225; penetrace</span><strong data-i18n="prices.two.value">900 K&#269;/m</strong></div>
+          <div><span data-i18n="prices.three">Pr&#367;zkum pro rodinn&#253; d&#367;m</span><strong data-i18n="prices.three.value">14 000 - 25 000 K&#269;</strong></div>
+          <div><span data-i18n="prices.four">Vsakovac&#237; zkou&#353;ka</span><strong data-i18n="prices.four.value">od 5000 K&#269;</strong></div>
+          <div><span data-i18n="prices.five">Hydrogeologick&#253; pr&#367;zkum pro &#268;OV</span><strong data-i18n="prices.five.value">od 10 000 K&#269;</strong></div>
+          <div><span data-i18n="prices.six">Radonov&#253; index pozemku</span><strong data-i18n="prices.six.value">od 4000 K&#269;</strong></div>
+        </div>
+        <p class="note" data-i18n="prices.note">
+          Re&#225;ln&#225; cena z&#225;vis&#237; na lokalit&#283;, geologick&#253;ch
+          podm&#237;nk&#225;ch, p&#345;&#237;stupu na pozemek a rozsahu prac&#237;.
+        </p>
+      </section>
+
+      <section class="scene-panel contact" data-section="kontakt">
+        <p class="eyebrow" data-i18n="contact.eyebrow">Rychl&#225; cesta k zak&#225;zce</p>
+        <h2 data-i18n="contact.title">Kontakt</h2>
+        <div class="contact-grid">
+          <article>
+            <h3>Mgr. J&#225;n Studenec</h3>
+            <p data-i18n="contact.one.role">In&#382;en&#253;rskogeologick&#233; pr&#367;zkumy</p>
+            <a href="tel:+420723326189">+420 723 326 189</a>
+            <a href="mailto:ageologie@gmail.com">ageologie@gmail.com</a>
+          </article>
+          <article>
+            <h3>Mgr. Daniil Belokopytov</h3>
+            <p data-i18n="contact.two.role">Hydrogeologie, vsakovac&#237; zkou&#353;ky, radon</p>
+            <a href="tel:+420775040593">+420 775 040 593</a>
+            <a href="mailto:belokopytovdaniil@gmail.com">belokopytovdaniil@gmail.com</a>
+          </article>
+          <div class="social-row" aria-label="Social networks">
+            <a href="https://www.instagram.com/" data-i18n="social.instagram">Instagram</a>
+            <a href="https://www.facebook.com/" data-i18n="social.facebook">Facebook</a>
+            <a href="https://x.com/" data-i18n="social.x">X</a>
+          </div>
+          <form>
+            <input
+              type="text"
+              placeholder="Jm&#233;no"
+              aria-label="Jmeno"
+              data-i18n-placeholder="form.name"
+              data-i18n-aria="form.name"
+            />
+            <input
+              type="email"
+              placeholder="E-mail"
+              aria-label="E-mail"
+              data-i18n-placeholder="form.email"
+              data-i18n-aria="form.email"
+            />
+            <textarea
+              placeholder="Stru&#269;n&#283; popi&#353;te pozemek nebo projekt"
+              aria-label="Zprava"
+              data-i18n-placeholder="form.message"
+              data-i18n-aria="form.message"
+            ></textarea>
+            <button type="button" data-i18n="form.submit">Odeslat popt&#225;vku</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
