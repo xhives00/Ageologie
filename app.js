@@ -283,8 +283,10 @@ function focusSection(target, animate = true) {
   raisePanel(target);
   clearTimeout(focusTimer);
 
+  const section = sectionMap[target];
+
   if (innerWidth <= 860) {
-    document.querySelector(`[data-section="${target}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    focusMobileSection(target, section, animate);
     return;
   }
 
@@ -310,7 +312,31 @@ function focusSection(target, animate = true) {
   moveCameraTo(metrics, calculateFocusScale(metrics), 0);
 }
 
-function spawnTransitionParticles(metrics) {
+function focusMobileSection(target, section, animate = true) {
+  const panel = document.querySelector(`[data-section="${target}"]`);
+  if (!panel) return;
+
+  if (section) {
+    root.style.setProperty("--travel-color", section.accent);
+    root.style.setProperty("--travel-x", section.glowX);
+    root.style.setProperty("--travel-y", section.glowY);
+  }
+
+  clearTimeout(travelTimer);
+  if (animate) {
+    body.classList.add("is-traveling", "mobile-jump");
+    spawnTransitionParticles(section || { glowX: "50%", glowY: "50%" }, 44);
+    setTimeout(() => {
+      panel.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 90);
+    travelTimer = setTimeout(() => body.classList.remove("is-traveling", "mobile-jump"), 920);
+    return;
+  }
+
+  panel.scrollIntoView({ behavior: "auto", block: "center" });
+}
+
+function spawnTransitionParticles(metrics, count = 76) {
   const targetX = (parseFloat(metrics.glowX) / 100) * innerWidth;
   const targetY = (parseFloat(metrics.glowY) / 100) * innerHeight;
   const colors = [
@@ -321,7 +347,7 @@ function spawnTransitionParticles(metrics) {
     "245, 236, 204",
   ];
 
-  for (let i = 0; i < 76; i += 1) {
+  for (let i = 0; i < count; i += 1) {
     const angle = Math.random() * Math.PI * 2;
     const distance = 20 + Math.random() * 220;
     const speed = 0.45 + Math.random() * 2.6;
